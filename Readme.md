@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Владимир Танцюра](https://up.htmlacademy.ru/javascript/19/user/1176897).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Выхрыстюк] (https://htmlacademy.ru/profile/id568747).
 
 ---
 
