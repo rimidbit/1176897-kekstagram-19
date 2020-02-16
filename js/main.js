@@ -56,6 +56,7 @@ var generateCards = function () { /*генерирую массив из 25 ка
   var cards = [];
 
   for (var i = 0; i < 25; i++) {
+    ++i
     cards.push(createCard(i)); /*тут в функцию createCard передается только аргумент i?*/
   }
 
@@ -85,5 +86,5 @@ var renderPictures = function (_cards) {
 
 var cards = generateCards();
 
-var renderCards = document.querySelector('.picture');
+var renderCards = document.querySelector('.pictures');
 renderCards.appendChild(renderPictures(cards));
