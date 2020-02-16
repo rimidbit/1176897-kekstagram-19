@@ -26,7 +26,7 @@ var randomInteger = function (min, max) {
   return Math.floor(rand);
 };
 
-var createCard = function (i) {
+var createCard = function (i) { /*создаю объект*/
   return {
     url: 'photos/' + i + '.jpg',
     description: '',
@@ -35,7 +35,7 @@ var createCard = function (i) {
   };
 };
 
-var createComment = function (i) {
+var createComment = function (i) { /*создаю объект с рандомным контентом*/
   return {
     avatar: 'img/avatar-' + (i + 1) + '.svg',
     message: commentsText[randomInteger(0, commentsText.length)],
@@ -43,7 +43,7 @@ var createComment = function (i) {
   };
 };
 
-var generateComments = function () {
+var generateComments = function () { /*генерирую арумент i для предыдущей функции*/
   var comments = [];
 
   for (var i = 0; i < randomInteger(1, 6); i++) {
@@ -52,31 +52,38 @@ var generateComments = function () {
   return comments;
 };
 
-var generateCards = function () {
+var generateCards = function () { /*генерирую массив из 25 карточек и передаю его в createCard с аргументом i*/
   var cards = [];
 
   for (var i = 0; i < 25; i++) {
-    cards.push(createCard(i));
+    cards.push(createCard(i)); /*тут в функцию createCard передается только аргумент i?*/
   }
 
   return cards;
 };
 
-var createPicture = function (card) {
+var renderPicture = function (card) {
+  var renderCard = document.querySelector('#picture').content.querySelector('.picture');
 
+  var element = renderCard.cloneNode(true);
+  element.querySelector('.picture__likes').textContent = card.likes;
+  element.querySelector('.picture__comments').textContent = card.comments;
+  element.querySelector('.picture__img').src = card.url;
+
+  return element;
 };
 
-var createPictures = function (_cards) {
-  //хранилице
+var renderPictures = function (_cards) {
+  var fragment = document.createDocumentFragment();
 
-  //цыкл
-     //добавляем в хранилице createPicture(_cards[i])
+  for (var i = 0; i < _cards.length; i++) {
+    fragment.appendChild(renderPicture(_cards[i]));
+  }
 
-  // добавляем DOM
+  return fragment;
 };
 
 var cards = generateCards();
 
-var pictureTemplate = document.querySelector('#picture');
-
-createPictures(cards)
+var renderCards = document.querySelector('.picture');
+renderCards.appendChild(renderPictures(cards));
