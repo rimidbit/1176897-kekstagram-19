@@ -56,7 +56,7 @@ var generateCards = function () { /*генерирую массив из 25 ка
   var cards = [];
 
   for (var i = 0; i < 25; i++) {
-    ++i
+    ++i;
     cards.push(createCard(i)); /*тут в функцию createCard передается только аргумент i?*/
   }
 
@@ -68,7 +68,7 @@ var renderPicture = function (card) {
 
   var element = renderCard.cloneNode(true);
   element.querySelector('.picture__likes').textContent = card.likes;
-  element.querySelector('.picture__comments').textContent = card.comments;
+  element.querySelector('.picture__comments').textContent = card.comments.length;
   element.querySelector('.picture__img').src = card.url;
 
   return element;
