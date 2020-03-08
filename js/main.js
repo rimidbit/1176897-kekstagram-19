@@ -84,7 +84,33 @@ var renderPictures = function (_cards) {
   return fragment;
 };
 
+var bigCard = document.querySelector('.big-picture');
+bigCard.classList.remove('hidden');
+
+var renderPopupPictures = function (cardBig) {
+  bigCard.querySelector('.big-picture__img').src = cardBig.url;
+  bigCard.querySelector('.likes-count').textContent = cardBig.likes;
+  bigCard.querySelector('.comments-count').textContent = cardBig.comments.length;
+  bigCard.querySelector('.social__caption').textContent = cardBig.description;
+  bigCard.querySelector('.social__comments').appendChild(renderComments(cardBig.comments));
+
+  console.log(bigCard);
+};
+
+var renderComments = function (comment) {
+  var commentsPopup = document.createDocumentFragment();
+
+  for (var i = 0; i < comment.length; i++) {
+    var popupElement = commentsPopup.cloneNode(true);
+    popupElement.querySelector('.social__comments').textContent = comment[i].message;
+  }
+
+  return commentsPopup;
+};
+
 var cards = generateCards();
 
 var renderCards = document.querySelector('.pictures');
 renderCards.appendChild(renderPictures(cards));
+
+renderPopupPictures(cards[0]);
