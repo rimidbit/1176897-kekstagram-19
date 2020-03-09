@@ -90,7 +90,6 @@ var commentTemplate = bigCard.querySelector('.social__comment').cloneNode(true);
 
 var renderPopupPictures = function (card) {
   bigCard.classList.remove('hidden');
-  bigCard.classList.remove('open');
 
   bigCard.querySelector('.big-picture__img').src = card.url;
   bigCard.querySelector('.likes-count').textContent = card.likes;
