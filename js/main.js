@@ -85,28 +85,42 @@ var renderPictures = function (_cards) {
 };
 
 var bigCard = document.querySelector('.big-picture');
-bigCard.classList.remove('hidden');
 
-var renderPopupPictures = function (cardBig) {
-  bigCard.querySelector('.big-picture__img').src = cardBig.url;
-  bigCard.querySelector('.likes-count').textContent = cardBig.likes;
-  bigCard.querySelector('.comments-count').textContent = cardBig.comments.length;
-  bigCard.querySelector('.social__caption').textContent = cardBig.description;
-  bigCard.querySelector('.social__comments').appendChild(renderComments(cardBig.comments));
+var commentTemplate = bigCard.querySelector('.social__comment').cloneNode(true);
 
-  console.log(bigCard);
+var renderPopupPictures = function (card) {
+  bigCard.classList.remove('hidden');
+  bigCard.classList.remove('open');
+
+  bigCard.querySelector('.big-picture__img').src = card.url;
+  bigCard.querySelector('.likes-count').textContent = card.likes;
+  bigCard.querySelector('.comments-count').textContent = card.comments.length;
+  bigCard.querySelector('.social__caption').textContent = card.description;
+  bigCard.querySelector('.social__comments').appendChild(renderComments(card.comments));
 };
 
-var renderComments = function (comment) {
-  var commentsPopup = document.createDocumentFragment();
+var renderComments = function (comments) {
+  var fragment = document.createDocumentFragment();
+  bigCard.querySelector('.social__comments').innerHTML = '';
 
-  for (var i = 0; i < comment.length; i++) {
-    var popupElement = commentsPopup.cloneNode(true);
-    popupElement.querySelector('.social__comments').textContent = comment[i].message;
+  for (var i = 0; i < comments.length; i++) {
+    var popupElement = commentTemplate.cloneNode(true);
+
+    popupElement.querySelector('.social__text').textContent = comments[i].message;
+    popupElement.querySelector('.social__picture').src = comments[i].avatar;
+    popupElement.querySelector('.social__picture').alt = comments[i].alt;
+
+    fragment.appendChild(popupElement);
   }
 
-  return commentsPopup;
+  return fragment;
 };
+
+var commentCount = document.querySelector('.social__comment-count');
+commentCount.classList.add('hidden');
+var commentsLoader = document.querySelector('.comments-loader');
+commentsLoader.classList.add('hidden');
+document.body.classList.add('modal-open');
 
 var cards = generateCards();
 
